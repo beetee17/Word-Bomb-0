@@ -63,7 +63,6 @@
 		6CAC9CDC2689CFF900A274B9 /* MainScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainScreen.swift; sourceTree = "<group>"; };
 		6CAC9CDE2689D0EE00A274B9 /* PassPlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PassPlay.swift; sourceTree = "<group>"; };
 		6CAC9CE52689E70A00A274B9 /* words.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = words.txt; sourceTree = "<group>"; };
-		6CAC9CE72689E79500A274B9 /* scrabble1.txt */ = {isa = PBXFileReference; lastKnownFileType = text; name = scrabble1.txt; path = "/Users/brandonthio/XCode/Word Bomb/Word Bomb/scrabble1.txt"; sourceTree = "<absolute>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -115,7 +114,6 @@
 			isa = PBXGroup;
 			children = (
 				6CAC9CE52689E70A00A274B9 /* words.txt */,
-				6CAC9CE72689E79500A274B9 /* scrabble1.txt */,
 				6CAC9C872688E26200A274B9 /* AppDelegate.swift */,
 				6CAC9C8D2688E26200A274B9 /* GameScene.swift */,
 				6CAC9CDC2689CFF900A274B9 /* MainScreen.swift */,

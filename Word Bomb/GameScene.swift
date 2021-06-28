@@ -11,15 +11,19 @@ import GameplayKit
 
 class GameScene: SKScene, UITextFieldDelegate {
     
-    let replayButton = addRestartButton()
+    
     let num_players = 2
     var players:[Player] = []
     var curr_player = Player(id_:0)
     
     let topBar = TopBar()
-    
+    let replayButton = addRestartButton()
     let stopwatchLabel = addStopwatchLabel()
     let currPlayerLabel = addPlayerLabel()
+    let (queryText, inputField) = addInput()
+    let outPutLabel = addOutputLabel()
+    
+    
     
     var timeLeft = 10
     var stopwatch:SKAction!
@@ -27,9 +31,6 @@ class GameScene: SKScene, UITextFieldDelegate {
     var start = true
     var dictionary = Set<String>()
     var usedWords = Set<String>()
-    
-    
-    let (queryText, inputField) = setUpInput()
     
     
     override func didMove(to view: SKView)  {
@@ -52,22 +53,24 @@ class GameScene: SKScene, UITextFieldDelegate {
         self.camera?.addChild(topBar)
         self.camera?.addChild(replayButton)
         
-        
         self.camera?.addChild(self.queryText)
-        self.view?.addSubview(self.inputField)
+        self.camera?.addChild(self.outPutLabel)
         
+        self.view?.addSubview(self.inputField)
         self.inputField.delegate = self
         self.inputField.becomeFirstResponder()
         
         do {
-            let path = Bundle.main.path(forResource: "countries", ofType: "txt")
+            let path = Bundle.main.path(forResource: "words", ofType: "txt")
             let string = try String(contentsOfFile: path!, encoding: String.Encoding.utf8)
+            
             self.dictionary = Set(string.components(separatedBy: "\n"))
         }
             
         catch let error {
             Swift.print("Fatal Error: \(error.localizedDescription)")
         }
+        
         
         
         for id_ in 0...self.num_players-1 {
@@ -106,33 +109,12 @@ class GameScene: SKScene, UITextFieldDelegate {
     func textFieldDidEndEditing(_ textField: UITextField) {
         
         // called when text field resigns first responder status
-        print("ended")
+        print("ended input")
         let input = textField.text!.lowercased()
         print(textField.text!)
 
-        // Check if input is an answer
-        if self.dictionary.contains(input) {
-            print("CORRECT")
-            self.curr_player = nextPlayer(curr_player: self.curr_player, players: self.players)
-            self.dictionary.remove(input)
-            self.usedWords.insert(input)
-            updatePlayerLabel()
-            self.timeLeft = 10
-        }
-
-        else {
-            
-            if self.usedWords.contains(input) {
-                print("WRONG - ALREADY USED!")
-            }
-                
-            else {
-
-            print("WRONG - NOT A COUNTRY")
-                
-            }
-            
-        }
+        processInput(input:input)
+    
     
         
         textField.becomeFirstResponder()
@@ -149,7 +131,7 @@ class GameScene: SKScene, UITextFieldDelegate {
         return true
     }
     func textFieldDidBeginEditing(_ textField: UITextField) {
-        print("started")
+        print("started input")
         textField.text = ""
 
     }
@@ -203,13 +185,73 @@ class GameScene: SKScene, UITextFieldDelegate {
         
     }
     
-    func updatePlayerLabel() {
-        self.currPlayerLabel.text = "Player \(Int(self.curr_player.id_+1))'s Turn!"
+    func updatePlayerLabel(gameOver:Bool = false) {
+        if gameOver {
+            self.currPlayerLabel.text = "\(self.curr_player.name!) Loses!"
+        }
+        else {
+            self.currPlayerLabel.text = "\(self.curr_player.name!)'s Turn!"
+        }
+    }
+    
+    func processInput(input:String) {
+        
+        // make output visible again
+        self.outPutLabel.isHidden = false
+        
+        // Check if input is an answer
+        if self.dictionary.contains(input) {
+
+            print("CORRECT")
+            self.curr_player = nextPlayer(curr_player: self.curr_player, players: self.players)
+            self.dictionary.remove(input)
+            self.usedWords.insert(input)
+            self.timeLeft = 10
+            updatePlayerLabel()
+            self.outPutLabel.fontColor = .green
+            self.outPutLabel.text = "CORRECT!"
+            
+
+
+        }
+
+        else {
+           
+            self.outPutLabel.fontColor = .red
+            
+            if self.usedWords.contains(input) {
+                
+                self.outPutLabel.text = "\(input) already used!"
+                
+           }
+               
+            else {
+
+                self.outPutLabel.text = "\(input) is not a country"
+                
+            }
+        }
+        
+        // hide the output after some time
+        
+        let SKwait = SKAction.wait(forDuration: 2)
+        let hideOutput = SKAction.run(
+            {
+                self.outPutLabel.isHidden = true
+            }
+        )
+        
+        self.run(SKAction.sequence([SKwait, hideOutput]))
+            
+        
+        
+        print(self.outPutLabel.text!)
     }
     
     func gameOver() {
         
         self.removeAction(forKey:"stopwatch")
+        updatePlayerLabel(gameOver:true)
         self.start = false
         
     }
@@ -272,6 +314,7 @@ func addRestartButton() -> SKSpriteNode{
     
     replayButton.texture = SKTexture(imageNamed: "Replay")
     replayButton.size = CGSize(width: UIScreen.main.bounds.size.width*0.5, height: UIScreen.main.bounds.size.width*0.5)
+    
     //Top Right
     replayButton.position = CGPoint(x: UIScreen.main.bounds.size.width*1.5, y: UIScreen.main.bounds.size.height*1.6)
     replayButton.color = UIColor.green
@@ -280,38 +323,48 @@ func addRestartButton() -> SKSpriteNode{
     return replayButton
 }
 
-func setUpInput() -> (SKLabelNode, UITextField) {
+func addInput() -> (SKLabelNode, UITextField) {
         
             
-        let queryText = SKLabelNode(fontNamed: "Avenir-Medium")
+    let queryText = SKLabelNode(fontNamed: "Avenir-Medium")
 
-        queryText.isHidden = false
-        queryText.fontColor = UIColor.white
-        queryText.fontName = "Futura"
-        queryText.fontSize = UIScreen.main.bounds.size.width/4
-        queryText.position = CGPoint(x: 0, y: UIScreen.main.bounds.size.height/2)
-        queryText.verticalAlignmentMode = .center
-        queryText.zPosition = 2
-        queryText.text = "Name a Country!"
-        
-        let inputPos = CGPoint(x: UIScreen.main.bounds.size.width/2, y: UIScreen.main.bounds.size.height/1.8)
-        let fieldWidth = CGFloat(250)
-        let fieldHeight = CGFloat(50)
-        let inputField = UITextField(frame: CGRect(x: inputPos.x - fieldWidth/2, y: inputPos.y - fieldHeight/2, width: fieldWidth, height: fieldHeight))
+    queryText.isHidden = false
+    queryText.fontColor = UIColor.white
+    queryText.fontName = "Futura"
+    queryText.fontSize = UIScreen.main.bounds.size.width/4
+    queryText.position = CGPoint(x: 0, y: 50)
+    queryText.verticalAlignmentMode = .center
+    queryText.zPosition = 2
+    queryText.text = "Name a Country!"
     
-        inputField.text = ""
-        inputField.font = UIFont(name: "Futura", size: UIScreen.main.bounds.size.width/16)
-        inputField.backgroundColor = .white
-        inputField.textColor = .black
-        inputField.textAlignment = .center
-        inputField.clearButtonMode = .whileEditing
-        inputField.clearsOnBeginEditing = true
-        inputField.borderStyle = .roundedRect
+    let inputPos = CGPoint(x: UIScreen.main.bounds.size.width/2, y: UIScreen.main.bounds.size.height/1.8)
+    let fieldWidth = CGFloat(250)
+    let fieldHeight = CGFloat(50)
+    let inputField = UITextField(frame: CGRect(x: inputPos.x - fieldWidth/2, y: inputPos.y - fieldHeight/2, width: fieldWidth, height: fieldHeight))
+
+    inputField.text = ""
+    inputField.font = UIFont(name: "Futura", size: UIScreen.main.bounds.size.width/16)
+    inputField.backgroundColor = .white
+    inputField.textColor = .black
+    inputField.textAlignment = .center
+    inputField.clearButtonMode = .whileEditing
+    inputField.clearsOnBeginEditing = true
+    inputField.borderStyle = .roundedRect
 
 
-        return (queryText, inputField)
-            
-        }
+    return (queryText, inputField)
+        
+    }
 
-
-
+func addOutputLabel() -> SKLabelNode {
+    let label = SKLabelNode(fontNamed: "Avenir-Medium")
+    
+    label.fontColor = UIColor.white
+    label.fontSize = UIScreen.main.bounds.size.width/6
+    label.verticalAlignmentMode = .center
+    label.position = CGPoint(x: 0, y: -UIScreen.main.bounds.size.width)
+    label.text = ""
+    label.zPosition = 5
+    
+    return label
+}

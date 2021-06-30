@@ -11,6 +11,7 @@ import GameplayKit
 
 class GameScene: SKScene, UITextFieldDelegate {
     
+    var mode:String!
     
     let num_players = 2
     var players:[Player] = []
@@ -20,10 +21,7 @@ class GameScene: SKScene, UITextFieldDelegate {
     let replayButton = addRestartButton()
     let stopwatchLabel = addStopwatchLabel()
     let currPlayerLabel = addPlayerLabel()
-    let (queryText, inputField) = addInput()
-    let outPutLabel = addOutputLabel()
-    
-    
+    let (queryText, inputField, outPutLabel) = addInputOutput()
     
     var timeLeft = 10
     var stopwatch:SKAction!
@@ -32,49 +30,40 @@ class GameScene: SKScene, UITextFieldDelegate {
     var dictionary = Set<String>()
     var usedWords = Set<String>()
     
+    var queries = Set<String>()
+    var query:String?
+    
     
     override func didMove(to view: SKView)  {
     
-        let cameraNode = SKCameraNode()
-        cameraNode.position = CGPoint(x: self.frame.midX, y: self.frame.midY)
-        cameraNode.zPosition = 1
-
-        addChild(cameraNode)
-        self.camera = cameraNode
-
-
-        self.view?.isUserInteractionEnabled = true
-        self.view?.isMultipleTouchEnabled = true
+        let camera = SKCameraNode()
         
-        self.stopwatch = getStopwatch()
+        camera.position = CGPoint(x: frame.midX, y: frame.midY)
+        camera.zPosition = 1
 
-        self.camera?.addChild(stopwatchLabel)
-        self.camera?.addChild(currPlayerLabel)
-        self.camera?.addChild(topBar)
-        self.camera?.addChild(replayButton)
+        addChild(camera)
+
+        stopwatch = getStopwatch()
+
+        camera.addChild(stopwatchLabel)
+        camera.addChild(currPlayerLabel)
+        camera.addChild(topBar)
+        camera.addChild(replayButton)
         
-        self.camera?.addChild(self.queryText)
-        self.camera?.addChild(self.outPutLabel)
+        camera.addChild(queryText)
+        camera.addChild(outPutLabel)
         
-        self.view?.addSubview(self.inputField)
-        self.inputField.delegate = self
-        self.inputField.becomeFirstResponder()
+        inputField.delegate = self
+        inputField.becomeFirstResponder()
         
-        do {
-            let path = Bundle.main.path(forResource: "words", ofType: "txt")
-            let string = try String(contentsOfFile: path!, encoding: String.Encoding.utf8)
-            
-            self.dictionary = Set(string.components(separatedBy: "\n"))
-        }
-            
-        catch let error {
-            Swift.print("Fatal Error: \(error.localizedDescription)")
+        if let view = self.view as SKView? {
+            view.addSubview(inputField)
         }
         
         
         
-        for id_ in 0...self.num_players-1 {
-            self.players.append(Player(id_: id_))
+        for id_ in 0...num_players-1 {
+            players.append(Player(id_: id_))
         }
         
         
@@ -84,23 +73,24 @@ class GameScene: SKScene, UITextFieldDelegate {
     
     override func update(_ currentTime: TimeInterval) {
         // Called before each frame is rendered
-        if self.start {
+        if start {
             
             // User has started game, start stopwatch
             
-            self.run(self.stopwatch, withKey: "stopwatch")
-            self.timeLeft = 10
-            self.curr_player = self.players[0]
+            run(stopwatch, withKey: "stopwatch")
+            timeLeft = 10
+            curr_player = players[0]
             updatePlayerLabel()
+            getRandQuery()
             
-            self.start = false
+            start = false
             
         }
         
         
-        if self.timeLeft == 0 {
-            print( "\(Int(self.curr_player.id_+1)) LOSES")
-            self.timeLeft = 10
+        if timeLeft == 0 {
+            print( "\(Int(curr_player.id_+1)) LOSES")
+            timeLeft = 10
             gameOver()
         }
         
@@ -115,8 +105,6 @@ class GameScene: SKScene, UITextFieldDelegate {
 
         processInput(input:input)
     
-    
-        
         textField.becomeFirstResponder()
 
     }
@@ -147,13 +135,13 @@ class GameScene: SKScene, UITextFieldDelegate {
                 
                 let touchLocation = touch.location(in: self)
                 
-                let nodesTouched = self.nodes(at: touchLocation)
+                let nodesTouched = nodes(at: touchLocation)
                 
                 if nodesTouched.count == 0  {
 
                     //Hides the keyboard if a blank space is touched
                     
-                    self.inputField.resignFirstResponder()
+                    inputField.resignFirstResponder()
                         
                     }
                 for node in nodesTouched {
@@ -171,6 +159,14 @@ class GameScene: SKScene, UITextFieldDelegate {
             }
         }
     
+    func getRandQuery() {
+        if queries.count > 0 {
+            let q = queries.randomElement()!
+            query = q
+            queryText.text = "\(q.uppercased())"
+        }
+    }
+    
     func getStopwatch() -> SKAction {
         
         let SKwait = SKAction.wait(forDuration: 1)
@@ -187,48 +183,37 @@ class GameScene: SKScene, UITextFieldDelegate {
     
     func updatePlayerLabel(gameOver:Bool = false) {
         if gameOver {
-            self.currPlayerLabel.text = "\(self.curr_player.name!) Loses!"
+            currPlayerLabel.text = "\(curr_player.name!) Loses!"
         }
         else {
-            self.currPlayerLabel.text = "\(self.curr_player.name!)'s Turn!"
+            currPlayerLabel.text = "\(curr_player.name!)'s Turn!"
         }
     }
     
     func processInput(input:String) {
         
         // make output visible again
-        self.outPutLabel.isHidden = false
+        outPutLabel.isHidden = false
         
-        // Check if input is an answer
-        if self.dictionary.contains(input) {
-
-            print("CORRECT")
-            self.curr_player = nextPlayer(curr_player: self.curr_player, players: self.players)
-            self.dictionary.remove(input)
-            self.usedWords.insert(input)
-            self.timeLeft = 10
-            updatePlayerLabel()
-            self.outPutLabel.fontColor = .green
-            self.outPutLabel.text = "CORRECT!"
-            
-
-
-        }
-
-        else {
-           
-            self.outPutLabel.fontColor = .red
-            
-            if self.usedWords.contains(input) {
-                
-                self.outPutLabel.text = "\(input) already used!"
-                
-           }
-               
+        if let q = query as String? {
+            // if game mode involves query (eg must have syllable in word
+            if input.contains(q) && dictionary.contains(input){
+                is_correct(input:input)
+                getRandQuery()
+            }
             else {
-
-                self.outPutLabel.text = "\(input) is not a country"
+                is_wrong(input:input)
+            }
+        }
+            
+        else {
+            // Check if input is an answer
+            if dictionary.contains(input) {
+                is_correct(input:input)
+            }
                 
+            else {
+                is_wrong(input:input)
             }
         }
         
@@ -236,30 +221,56 @@ class GameScene: SKScene, UITextFieldDelegate {
         
         let SKwait = SKAction.wait(forDuration: 2)
         let hideOutput = SKAction.run(
-            {
-                self.outPutLabel.isHidden = true
+        {
+            self.outPutLabel.isHidden = true
             }
         )
         
-        self.run(SKAction.sequence([SKwait, hideOutput]))
-            
+        run(SKAction.sequence([SKwait, hideOutput]))
         
         
-        print(self.outPutLabel.text!)
+        
+        print(outPutLabel.text!)
     }
     
-    func gameOver() {
+    func is_correct(input:String) {
+        print("CORRECT")
+        curr_player = nextPlayer(curr_player: curr_player, players: players)
+        dictionary.remove(input)
+        usedWords.insert(input)
+        timeLeft = 10
+        updatePlayerLabel()
+        outPutLabel.fontColor = .green
+        outPutLabel.text = "CORRECT!"
+    }
+    func is_wrong(input:String) {
+        outPutLabel.fontColor = .red
         
-        self.removeAction(forKey:"stopwatch")
+        if usedWords.contains(input) {
+            
+            outPutLabel.text = "\(input) already used!"
+            
+        }
+            
+        else {
+            
+            outPutLabel.text = "\(input) is wrong!"
+            
+        }
+    }
+    func gameOver() {
+        // stop the stopwatch and reset to first player
+        removeAction(forKey:"stopwatch")
         updatePlayerLabel(gameOver:true)
-        self.start = false
+        start = false
         
     }
     
     func restartGame() {
-        self.dictionary = self.usedWords.union(self.dictionary)
-        self.usedWords = Set<String>()
-        self.start = true
+        // reset dictionary and used words
+        dictionary = usedWords.union(dictionary)
+        usedWords = Set<String>()
+        start = true
         
     }
     
@@ -323,7 +334,7 @@ func addRestartButton() -> SKSpriteNode{
     return replayButton
 }
 
-func addInput() -> (SKLabelNode, UITextField) {
+func addInputOutput() -> (SKLabelNode, UITextField, SKLabelNode) {
         
             
     let queryText = SKLabelNode(fontNamed: "Avenir-Medium")
@@ -350,21 +361,22 @@ func addInput() -> (SKLabelNode, UITextField) {
     inputField.clearButtonMode = .whileEditing
     inputField.clearsOnBeginEditing = true
     inputField.borderStyle = .roundedRect
+    
+    let outputLabel = SKLabelNode(fontNamed: "Avenir-Medium")
+    
+    outputLabel.fontColor = UIColor.white
+    outputLabel.fontSize = UIScreen.main.bounds.size.width/6
+    outputLabel.verticalAlignmentMode = .center
+    
+    outputLabel.position = CGPoint(x: 0, y: queryText.position.y -  CGFloat(450))
+    outputLabel.text = ""
+    outputLabel.zPosition = 5
 
 
-    return (queryText, inputField)
+    return (queryText, inputField, outputLabel)
         
     }
 
-func addOutputLabel() -> SKLabelNode {
-    let label = SKLabelNode(fontNamed: "Avenir-Medium")
-    
-    label.fontColor = UIColor.white
-    label.fontSize = UIScreen.main.bounds.size.width/6
-    label.verticalAlignmentMode = .center
-    label.position = CGPoint(x: 0, y: -UIScreen.main.bounds.size.width)
-    label.text = ""
-    label.zPosition = 5
-    
-    return label
-}
+
+
+

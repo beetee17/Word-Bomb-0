@@ -10,31 +10,12 @@ import Foundation
 import SpriteKit
 import GameplayKit
 
-let MODES = ["WORDS", "COUNTRIES"]
 
-class ModeSelectScene: SKScene {
-    
-    var data:[String:[String]] = [:]
-    var queries:[String:[String]] = [:]
+final class ModeSelectScene: SKScene {
     
     override func didMove(to view: SKView)  {
         
-        let camera = SKCameraNode()
-        camera.position = CGPoint(x: self.frame.midX, y: self.frame.midY)
-        camera.zPosition = 1
-
-        addChild(camera)
-        
-        let modeButtonSize = CGSize(width: UIScreen.main.bounds.size.width*1.5, height: UIScreen.main.bounds.size.width*0.5)
-        
-        for i in 0..<MODES.count {
-
-            let (modeButton, modeText) = addMode(modeName:MODES[i], size:modeButtonSize, pos:CGPoint(x:0, y:(CGFloat(400)*CGFloat(i))))
-        
-            camera.addChild(modeButton)
-            camera.addChild(modeText)
-    
-        }
+        addModes()
         
     }
     
@@ -69,15 +50,9 @@ class ModeSelectScene: SKScene {
         
         if let view = self.view as SKView? {
 
-            let scene = GameScene(size: CGSize(width: (view.bounds.width) * 4, height: (view.bounds.height)*4))
+            let scene = GameScene(size: CGSize(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height))
             
             scene.mode = mode
-            
-            scene.dictionary = Set(data[mode]!)
-            
-            if mode == "words" {
-                scene.queries = Set(queries[mode]!)
-            }
                    
             // Set the scale mode to scale to fit the window
             scene.scaleMode = .aspectFill
@@ -86,34 +61,43 @@ class ModeSelectScene: SKScene {
 
             // Present the scene
             view.presentScene(scene, transition:transition)
-            view.showsFPS = true
+
         }
+    }
+    
+    // MARK: - viewDidLoad functions
+    func addModes() {
+        
+        let buttonSize = CGSize(width: UIScreen.main.bounds.size.width/2, height: UIScreen.main.bounds.size.height/15)
+        let modes = Constants.modes
+            
+        for i in 0..<modes.count {
+            
+            let modeButton = SKSpriteNode()
+            modeButton.size = buttonSize
+            modeButton.position = CGPoint(x:UIScreen.main.bounds.size.width/2, y:UIScreen.main.bounds.size.height/2-((buttonSize.height+CGFloat(50))*CGFloat(i)))
+            modeButton.zPosition = 2
+            modeButton.color = UIColor.yellow
+            modeButton.name = "\(modes[i])"
+            
+            let modeText = SKLabelNode(fontNamed: Constants.fontName)
+            modeText.isHidden = false
+            modeText.fontColor = UIColor.black
+            modeText.fontSize = Constants.fontSize.med!
+            modeText.position = modeButton.position
+            modeText.verticalAlignmentMode = .center
+            modeText.zPosition = 3
+            modeText.text = "\(modes[i])"
+            modeText.name = "\(modes[i])"
+            
+            addChild(modeButton)
+            addChild(modeText)
+
+        }
+        
+
     }
 }
 
 
 
-func addMode(modeName:String, size:CGSize, pos:CGPoint) -> (SKSpriteNode, SKLabelNode) {
-    
-    let modeButton = SKSpriteNode()
-    modeButton.size = size
-    modeButton.position = pos
-    modeButton.zPosition = 2
-    modeButton.color = UIColor.yellow
-    modeButton.name = "\(modeName)"
-    
-    let modeText = SKLabelNode(fontNamed: "Avenir-Medium")
-
-    modeText.isHidden = false
-    modeText.fontColor = UIColor.black
-    modeText.fontName = "Futura"
-    modeText.fontSize = UIScreen.main.bounds.size.width/4
-    modeText.position = modeButton.position
-    modeText.verticalAlignmentMode = .center
-    modeText.zPosition = 3
-    modeText.text = "\(modeName)"
-    modeText.name = "\(modeName)"
-
-
-    return (modeButton, modeText)
-}

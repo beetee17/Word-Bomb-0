@@ -10,27 +10,12 @@ import Foundation
 import SpriteKit
 import GameplayKit
 
-class MainScene: SKScene {
+final class MainScene: SKScene {
     
-    let (passPlayButton, passPlayText) = addPassPlay()
-    var data:[String:[String]] = [:]
-    var queries:[String:[String]] = [:]
     
     override func didMove(to view: SKView)  {
         
-        let camera = SKCameraNode()
-        camera.position = CGPoint(x: self.frame.midX, y: self.frame.midY)
-        camera.zPosition = 1
-        addChild(camera)
-        
-        camera.addChild(self.passPlayButton)
-        camera.addChild(self.passPlayText)
-   
-        if let view = self.view as SKView? {
-            view.isUserInteractionEnabled = true
-            view.isMultipleTouchEnabled = true
-        }
-        
+        addPassPlay()
         
         // load datasets
         
@@ -38,17 +23,17 @@ class MainScene: SKScene {
             var path = Bundle.main.path(forResource: "countries", ofType: "txt")
             var string = try String(contentsOfFile: path!, encoding: String.Encoding.utf8)
 
-            data["countries"] = string.components(separatedBy: "\n")
+            Constants.data["countries"] = string.components(separatedBy: "\n")
             
             path = Bundle.main.path(forResource: "words", ofType: "txt")
             string = try String(contentsOfFile: path!, encoding: String.Encoding.utf8)
 
-            data["words"] = string.components(separatedBy: "\n")
+            Constants.data["words"] = string.components(separatedBy: "\n")
             
             path = Bundle.main.path(forResource: "syllables", ofType: "txt")
             string = try String(contentsOfFile: path!, encoding: String.Encoding.utf8)
             
-            queries["words"] = string.components(separatedBy: "\n")
+            Constants.queries["words"] = string.components(separatedBy: "\n")
 
             
         }
@@ -92,12 +77,10 @@ class MainScene: SKScene {
         
         if let view = self.view as SKView? {
             
-            let scene = ModeSelectScene(size: CGSize(width: view.bounds.width*4, height: view.bounds.height*4))
+            let scene = ModeSelectScene(size: CGSize(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height))
                        
                 // Set the scale mode to scale to fit the window
                 scene.scaleMode = .aspectFill
-                scene.data = data
-                scene.queries = queries
             
                 let transition = SKTransition.fade(withDuration: 0.5)
 
@@ -107,32 +90,34 @@ class MainScene: SKScene {
         }
         
     }
+    
+    // MARK: - viewDidLoad functions
+    func addPassPlay() {
+
+        
+        let buttonSize = CGSize(width: UIScreen.main.bounds.size.width/2, height: UIScreen.main.bounds.size.height/15)
+        
+        let passPlayButton = SKSpriteNode()
+        passPlayButton.size = buttonSize
+        passPlayButton.position = CGPoint(x: UIScreen.main.bounds.size.width/2, y: UIScreen.main.bounds.size.height/2)
+        passPlayButton.color = UIColor.yellow
+        passPlayButton.name = "Pass & Play"
+        
+        let passPlayText = SKLabelNode(fontNamed: Constants.fontName)
+
+        passPlayText.isHidden = false
+        passPlayText.fontColor = UIColor.black
+        passPlayText.fontSize = Constants.fontSize.med!
+        passPlayText.position = passPlayButton.position
+        passPlayText.verticalAlignmentMode = .center
+        passPlayText.zPosition = 2
+        passPlayText.text = "Pass & Play!"
+
+        addChild(passPlayButton)
+        addChild(passPlayText)
+    }
 }
 
 
 
-func addPassPlay() -> (SKSpriteNode, SKLabelNode) {
 
-    
-    let buttonSize = CGSize(width: UIScreen.main.bounds.size.width*1.5, height: UIScreen.main.bounds.size.width*0.5)
-    
-    let passPlayButton = SKSpriteNode()
-    passPlayButton.size = buttonSize
-    passPlayButton.position = CGPoint(x: 0, y: 0)
-    passPlayButton.color = UIColor.yellow
-    passPlayButton.name = "Pass & Play"
-    
-    let passPlayText = SKLabelNode(fontNamed: "Avenir-Medium")
-
-    passPlayText.isHidden = false
-    passPlayText.fontColor = UIColor.black
-    passPlayText.fontName = "Futura"
-    passPlayText.fontSize = UIScreen.main.bounds.size.width/4
-    passPlayText.position = passPlayButton.position
-    passPlayText.verticalAlignmentMode = .center
-    passPlayText.zPosition = 2
-    passPlayText.text = "Pass & Play!"
-
-
-    return (passPlayButton, passPlayText)
-}

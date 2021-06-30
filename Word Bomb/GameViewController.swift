@@ -11,30 +11,38 @@ import SpriteKit
 import GameplayKit
 
 
-class GameViewController: UIViewController {
+final class GameViewController: UIViewController {
     
     
     override func viewDidLoad() {
+        
+        Constants.fontSize.small = UIScreen.main.bounds.width/16
+        Constants.fontSize.med = UIScreen.main.bounds.width/12
+        Constants.fontSize.large = UIScreen.main.bounds.width/10
         
         super.viewDidLoad()
         
         
         if let view = self.view as! SKView? {
             
-            let scene = MainScene(size: CGSize(width: view.bounds.width * 4, height: view.bounds.height*4))
+            let scene = MainScene(size: CGSize(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height))
             
             // Set the scale mode to scale to fit the window
- 
             scene.scaleMode = .aspectFill
                 
             // Present the scene
             view.presentScene(scene)
+            
+            // set view settings
             view.ignoresSiblingOrder = true
             view.showsFPS = true
             view.isUserInteractionEnabled = true
             view.isMultipleTouchEnabled = true
             
         }
+        
+        
+        
     }
 
 

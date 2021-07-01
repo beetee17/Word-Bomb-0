@@ -8,27 +8,24 @@
 
 import Foundation
 
+
 class Player {
     
-    var id_:Int!
-    var score:Int!
-    var name:String!
+    var score:Int = 0
+    var name:String
+    var ID:Int
     
-    init(id_:Int) {
-        self.id_ = id_
-        self.score = 0
-        self.name = "Player \(Int(self.id_+1))"
+    init(ID:Int) {
+        
+        name = "Player \(ID)"
+        self.ID = ID
+        
     }
     
-    func increment_score() {
-        self.score += 1
-    }
-    
-    func reset() {
-        self.score = 0
-    }
-    
-    func setName(name:String) {
+    init(name:String, ID:Int) {
         self.name = name
+        self.ID = ID
+        
     }
+    
 }

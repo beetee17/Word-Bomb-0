@@ -22,6 +22,7 @@
 		6CAC9CE9268AEC1A00A274B9 /* syllables.txt in Resources */ = {isa = PBXBuildFile; fileRef = 6CAC9CE8268AEC1A00A274B9 /* syllables.txt */; };
 		6CAC9CEB268AEC3200A274B9 /* ModeSelectScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CAC9CEA268AEC3200A274B9 /* ModeSelectScene.swift */; };
 		6CAC9CED268CC42100A274B9 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CAC9CEC268CC42100A274B9 /* Constants.swift */; };
+		6CC4E2D1268D802B00198CB9 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6CC4E2D0268D802B00198CB9 /* Default-568h@2x.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -42,7 +43,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		6CAC9C842688E26200A274B9 /* Word Bomb.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Word Bomb.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		6CAC9C842688E26200A274B9 /* WordBomb.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WordBomb.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6CAC9C872688E26200A274B9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		6CAC9C8D2688E26200A274B9 /* GameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameScene.swift; sourceTree = "<group>"; };
 		6CAC9C8F2688E26200A274B9 /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
@@ -50,10 +51,10 @@
 		6CAC9C942688E26B00A274B9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		6CAC9C972688E26B00A274B9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		6CAC9C992688E26B00A274B9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		6CAC9C9E2688E26B00A274B9 /* Word BombTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Word BombTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		6CAC9C9E2688E26B00A274B9 /* WordBombTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WordBombTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		6CAC9CA22688E26B00A274B9 /* Word_BombTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Word_BombTests.swift; sourceTree = "<group>"; };
 		6CAC9CA42688E26B00A274B9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		6CAC9CA92688E26B00A274B9 /* Word BombUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Word BombUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		6CAC9CA92688E26B00A274B9 /* WordBombUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WordBombUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		6CAC9CAD2688E26B00A274B9 /* Word_BombUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Word_BombUITests.swift; sourceTree = "<group>"; };
 		6CAC9CAF2688E26B00A274B9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6CAC9CC12688ED0C00A274B9 /* countries.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = countries.txt; sourceTree = "<group>"; };
@@ -63,6 +64,7 @@
 		6CAC9CE8268AEC1A00A274B9 /* syllables.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = syllables.txt; sourceTree = "<group>"; };
 		6CAC9CEA268AEC3200A274B9 /* ModeSelectScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModeSelectScene.swift; sourceTree = "<group>"; };
 		6CAC9CEC268CC42100A274B9 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		6CC4E2D0268D802B00198CB9 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -93,9 +95,10 @@
 		6CAC9C7B2688E26200A274B9 = {
 			isa = PBXGroup;
 			children = (
-				6CAC9C862688E26200A274B9 /* Word Bomb */,
-				6CAC9CA12688E26B00A274B9 /* Word BombTests */,
-				6CAC9CAC2688E26B00A274B9 /* Word BombUITests */,
+				6CC4E2D0268D802B00198CB9 /* Default-568h@2x.png */,
+				6CAC9C862688E26200A274B9 /* WordBomb */,
+				6CAC9CA12688E26B00A274B9 /* WordBombTests */,
+				6CAC9CAC2688E26B00A274B9 /* WordBombUITests */,
 				6CAC9C852688E26200A274B9 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -103,14 +106,14 @@
 		6CAC9C852688E26200A274B9 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				6CAC9C842688E26200A274B9 /* Word Bomb.app */,
-				6CAC9C9E2688E26B00A274B9 /* Word BombTests.xctest */,
-				6CAC9CA92688E26B00A274B9 /* Word BombUITests.xctest */,
+				6CAC9C842688E26200A274B9 /* WordBomb.app */,
+				6CAC9C9E2688E26B00A274B9 /* WordBombTests.xctest */,
+				6CAC9CA92688E26B00A274B9 /* WordBombUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		6CAC9C862688E26200A274B9 /* Word Bomb */ = {
+		6CAC9C862688E26200A274B9 /* WordBomb */ = {
 			isa = PBXGroup;
 			children = (
 				6CAC9CE52689E70A00A274B9 /* words.txt */,
@@ -128,33 +131,33 @@
 				6CAC9C962688E26B00A274B9 /* LaunchScreen.storyboard */,
 				6CAC9C992688E26B00A274B9 /* Info.plist */,
 			);
-			path = "Word Bomb";
+			path = WordBomb;
 			sourceTree = "<group>";
 		};
-		6CAC9CA12688E26B00A274B9 /* Word BombTests */ = {
+		6CAC9CA12688E26B00A274B9 /* WordBombTests */ = {
 			isa = PBXGroup;
 			children = (
 				6CAC9CA22688E26B00A274B9 /* Word_BombTests.swift */,
 				6CAC9CA42688E26B00A274B9 /* Info.plist */,
 			);
-			path = "Word BombTests";
+			path = WordBombTests;
 			sourceTree = "<group>";
 		};
-		6CAC9CAC2688E26B00A274B9 /* Word BombUITests */ = {
+		6CAC9CAC2688E26B00A274B9 /* WordBombUITests */ = {
 			isa = PBXGroup;
 			children = (
 				6CAC9CAD2688E26B00A274B9 /* Word_BombUITests.swift */,
 				6CAC9CAF2688E26B00A274B9 /* Info.plist */,
 			);
-			path = "Word BombUITests";
+			path = WordBombUITests;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		6CAC9C832688E26200A274B9 /* Word Bomb */ = {
+		6CAC9C832688E26200A274B9 /* WordBomb */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 6CAC9CB22688E26B00A274B9 /* Build configuration list for PBXNativeTarget "Word Bomb" */;
+			buildConfigurationList = 6CAC9CB22688E26B00A274B9 /* Build configuration list for PBXNativeTarget "WordBomb" */;
 			buildPhases = (
 				6CAC9C802688E26200A274B9 /* Sources */,
 				6CAC9C812688E26200A274B9 /* Frameworks */,
@@ -164,14 +167,14 @@
 			);
 			dependencies = (
 			);
-			name = "Word Bomb";
+			name = WordBomb;
 			productName = "Word Bomb";
-			productReference = 6CAC9C842688E26200A274B9 /* Word Bomb.app */;
+			productReference = 6CAC9C842688E26200A274B9 /* WordBomb.app */;
 			productType = "com.apple.product-type.application";
 		};
-		6CAC9C9D2688E26B00A274B9 /* Word BombTests */ = {
+		6CAC9C9D2688E26B00A274B9 /* WordBombTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 6CAC9CB52688E26B00A274B9 /* Build configuration list for PBXNativeTarget "Word BombTests" */;
+			buildConfigurationList = 6CAC9CB52688E26B00A274B9 /* Build configuration list for PBXNativeTarget "WordBombTests" */;
 			buildPhases = (
 				6CAC9C9A2688E26B00A274B9 /* Sources */,
 				6CAC9C9B2688E26B00A274B9 /* Frameworks */,
@@ -182,14 +185,14 @@
 			dependencies = (
 				6CAC9CA02688E26B00A274B9 /* PBXTargetDependency */,
 			);
-			name = "Word BombTests";
+			name = WordBombTests;
 			productName = "Word BombTests";
-			productReference = 6CAC9C9E2688E26B00A274B9 /* Word BombTests.xctest */;
+			productReference = 6CAC9C9E2688E26B00A274B9 /* WordBombTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		6CAC9CA82688E26B00A274B9 /* Word BombUITests */ = {
+		6CAC9CA82688E26B00A274B9 /* WordBombUITests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 6CAC9CB82688E26B00A274B9 /* Build configuration list for PBXNativeTarget "Word BombUITests" */;
+			buildConfigurationList = 6CAC9CB82688E26B00A274B9 /* Build configuration list for PBXNativeTarget "WordBombUITests" */;
 			buildPhases = (
 				6CAC9CA52688E26B00A274B9 /* Sources */,
 				6CAC9CA62688E26B00A274B9 /* Frameworks */,
@@ -200,9 +203,9 @@
 			dependencies = (
 				6CAC9CAB2688E26B00A274B9 /* PBXTargetDependency */,
 			);
-			name = "Word BombUITests";
+			name = WordBombUITests;
 			productName = "Word BombUITests";
-			productReference = 6CAC9CA92688E26B00A274B9 /* Word BombUITests.xctest */;
+			productReference = 6CAC9CA92688E26B00A274B9 /* WordBombUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
 /* End PBXNativeTarget section */
@@ -212,7 +215,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1130;
-				LastUpgradeCheck = 1130;
+				LastUpgradeCheck = 1240;
 				ORGANIZATIONNAME = "Brandon Thio";
 				TargetAttributes = {
 					6CAC9C832688E26200A274B9 = {
@@ -228,7 +231,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 6CAC9C7F2688E26200A274B9 /* Build configuration list for PBXProject "Word Bomb" */;
+			buildConfigurationList = 6CAC9C7F2688E26200A274B9 /* Build configuration list for PBXProject "WordBomb" */;
 			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -241,9 +244,9 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				6CAC9C832688E26200A274B9 /* Word Bomb */,
-				6CAC9C9D2688E26B00A274B9 /* Word BombTests */,
-				6CAC9CA82688E26B00A274B9 /* Word BombUITests */,
+				6CAC9C832688E26200A274B9 /* WordBomb */,
+				6CAC9C9D2688E26B00A274B9 /* WordBombTests */,
+				6CAC9CA82688E26B00A274B9 /* WordBombUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -258,6 +261,7 @@
 				6CAC9CE9268AEC1A00A274B9 /* syllables.txt in Resources */,
 				6CAC9CE62689E70A00A274B9 /* words.txt in Resources */,
 				6CAC9C982688E26B00A274B9 /* LaunchScreen.storyboard in Resources */,
+				6CC4E2D1268D802B00198CB9 /* Default-568h@2x.png in Resources */,
 				6CAC9CC22688ED0C00A274B9 /* countries.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -314,12 +318,12 @@
 /* Begin PBXTargetDependency section */
 		6CAC9CA02688E26B00A274B9 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 6CAC9C832688E26200A274B9 /* Word Bomb */;
+			target = 6CAC9C832688E26200A274B9 /* WordBomb */;
 			targetProxy = 6CAC9C9F2688E26B00A274B9 /* PBXContainerItemProxy */;
 		};
 		6CAC9CAB2688E26B00A274B9 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 6CAC9C832688E26200A274B9 /* Word Bomb */;
+			target = 6CAC9C832688E26200A274B9 /* WordBomb */;
 			targetProxy = 6CAC9CAA2688E26B00A274B9 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -370,6 +374,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -430,6 +435,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -462,15 +468,17 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = M9BZ2GV933;
-				INFOPLIST_FILE = "Word Bomb/Info.plist";
+				DEVELOPMENT_TEAM = 58PSMJ9S5S;
+				INFOPLIST_FILE = WordBomb/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "brandonthio.Word-Bomb";
+				PRODUCT_BUNDLE_IDENTIFIER = brandonthio.WordBomb;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -480,15 +488,17 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = M9BZ2GV933;
-				INFOPLIST_FILE = "Word Bomb/Info.plist";
+				DEVELOPMENT_TEAM = 58PSMJ9S5S;
+				INFOPLIST_FILE = WordBomb/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "brandonthio.Word-Bomb";
+				PRODUCT_BUNDLE_IDENTIFIER = brandonthio.WordBomb;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -499,8 +509,8 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = M9BZ2GV933;
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = "Word BombTests/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -510,9 +520,11 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "brandonthio.Word-BombTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Word Bomb.app/Word Bomb";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/WordBomb.app/WordBomb";
 			};
 			name = Debug;
 		};
@@ -521,8 +533,8 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = M9BZ2GV933;
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = "Word BombTests/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -532,9 +544,11 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "brandonthio.Word-BombTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Word Bomb.app/Word Bomb";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/WordBomb.app/WordBomb";
 			};
 			name = Release;
 		};
@@ -581,7 +595,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		6CAC9C7F2688E26200A274B9 /* Build configuration list for PBXProject "Word Bomb" */ = {
+		6CAC9C7F2688E26200A274B9 /* Build configuration list for PBXProject "WordBomb" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				6CAC9CB02688E26B00A274B9 /* Debug */,
@@ -590,7 +604,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		6CAC9CB22688E26B00A274B9 /* Build configuration list for PBXNativeTarget "Word Bomb" */ = {
+		6CAC9CB22688E26B00A274B9 /* Build configuration list for PBXNativeTarget "WordBomb" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				6CAC9CB32688E26B00A274B9 /* Debug */,
@@ -599,7 +613,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		6CAC9CB52688E26B00A274B9 /* Build configuration list for PBXNativeTarget "Word BombTests" */ = {
+		6CAC9CB52688E26B00A274B9 /* Build configuration list for PBXNativeTarget "WordBombTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				6CAC9CB62688E26B00A274B9 /* Debug */,
@@ -608,7 +622,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		6CAC9CB82688E26B00A274B9 /* Build configuration list for PBXNativeTarget "Word BombUITests" */ = {
+		6CAC9CB82688E26B00A274B9 /* Build configuration list for PBXNativeTarget "WordBombUITests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				6CAC9CB92688E26B00A274B9 /* Debug */,

@@ -7,7 +7,7 @@
 //
 
 import SpriteKit
-import GameplayKit
+//import GameplayKit
 
 final class GameScene: SKScene, UITextFieldDelegate {
     
@@ -49,7 +49,6 @@ final class GameScene: SKScene, UITextFieldDelegate {
             addInputOutput()
         
     }
-    
     
     
     override func update(_ currentTime: TimeInterval) {

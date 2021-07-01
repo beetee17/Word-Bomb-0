@@ -28,26 +28,25 @@ final class GameScene: SKScene, UITextFieldDelegate {
     var stopwatch:SKAction!
     
     var start = true
-    var words = Set<String>()
+    var words:[String] = []
     var query:String?
     
-    
-    override func didMove(to view: SKView)  {
-    
+    override func sceneDidLoad() {
+        
         stopwatch = getStopwatch()
 
         addStopwatchLabel()
         addPlayerLabel()
         addTopBar()
         addReplayButton()
-        addInputOutput()
         
-        words = Set(Constants.data[mode]!)
-        
-    
         for id_ in 0...num_players-1 {
             players.append(Player(id_: id_))
         }
+    }
+    override func didMove(to view: SKView)  {
+    
+            addInputOutput()
         
     }
     
@@ -176,26 +175,33 @@ final class GameScene: SKScene, UITextFieldDelegate {
         
         // make output visible again
         self.outputLabel.isHidden = false
+        let searchResult = words.search(element: input)
         
-        if let q = query as String? {
-            // if game mode involves query (eg must have syllable in word)
-            if input.contains(q) && words.contains(input){
-                is_correct(input:input)
-                getRandQuery()
-            }
-            else {
-                is_wrong(input:input)
-            }
+        if Constants.usedWords.contains(searchResult) {
+            alreadyUsed(input:input)
         }
-            
         else {
-            // Check if input is an answer
-            if words.contains(input) {
-                is_correct(input:input)
+            
+            if let q = query as String? {
+                // if game mode involves query (eg must have syllable in word)
+                if input.contains(q) && (searchResult != -1){
+                    isCorrect(input:input, index:searchResult)
+                    getRandQuery()
+                }
+                else {
+                    isWrong(input:input)
+                }
             }
                 
             else {
-                is_wrong(input:input)
+                // Check if input is an answer
+                if (searchResult != -1) {
+                    isCorrect(input:input, index:searchResult)
+                }
+                    
+                else {
+                    isWrong(input:input)
+                }
             }
         }
         
@@ -215,30 +221,27 @@ final class GameScene: SKScene, UITextFieldDelegate {
         print(outputLabel.text!)
     }
     
-    func is_correct(input:String) {
+    func isCorrect(input:String, index:Int) {
         print("CORRECT")
         curr_player = nextPlayer(curr_player: curr_player, players: players)
-        words.remove(input)
-        Constants.usedWords.insert(input)
+        Constants.usedWords.insert(index)
         resetStopwatch()
         updatePlayerLabel()
         self.outputLabel.fontColor = .green
         self.outputLabel.text = "CORRECT!"
     }
-    func is_wrong(input:String) {
-        self.outputLabel.fontColor = .red
+    func isWrong(input:String) {
         
-        if Constants.usedWords.contains(input) {
-            
-            self.outputLabel.text = "\(input) already used!"
-            
-        }
-            
-        else {
-            
-            self.outputLabel.text = "\(input) is wrong!"
-            
-        }
+        self.outputLabel.fontColor = .red
+        self.outputLabel.text = "\(input) is wrong!"
+        
+    }
+    
+    func alreadyUsed(input:String) {
+        
+        self.outputLabel.fontColor = .red
+        self.outputLabel.text = "\(input) already used!"
+        
     }
     
     // MARK: - Game Loop Functions
@@ -262,8 +265,7 @@ final class GameScene: SKScene, UITextFieldDelegate {
     
     func restartGame() {
         // reset dictionary and used words
-        words = Constants.usedWords.union(words)
-        Constants.usedWords = Set<String>()
+        Constants.usedWords = Set<Int>()
         start = true
         
     }

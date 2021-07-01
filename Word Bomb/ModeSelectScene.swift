@@ -53,11 +53,12 @@ final class ModeSelectScene: SKScene {
             let scene = GameScene(size: CGSize(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height))
             
             scene.mode = mode
+            scene.words = Constants.data[mode]!
                    
             // Set the scale mode to scale to fit the window
             scene.scaleMode = .aspectFill
             
-            let transition = SKTransition.fade(withDuration: 0.5)
+            let transition = SKTransition.fade(withDuration: 1.5)
 
             // Present the scene
             view.presentScene(scene, transition:transition)

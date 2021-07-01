@@ -18,7 +18,6 @@ final class MainScene: SKScene {
         addPassPlay()
         
         // load datasets
-        
         do {
             var path = Bundle.main.path(forResource: "countries", ofType: "txt")
             var string = try String(contentsOfFile: path!, encoding: String.Encoding.utf8)
